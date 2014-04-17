@@ -101,6 +101,9 @@ public abstract class AbstractSvnScmProvider
             {
                 InfoScmResult info =
                     info( result.repository, new ScmFileSet( new File( "." ) ), new CommandParameters() );
+                if (!info.isSuccess()) {
+                    throw new ScmRepositoryException( "An error occurred while trying to svn info " + info.getCommandOutput());
+                }
                 String url = findUrlInfoItem( info );
                 if ( url != null && !url.equals( scmSpecificUrl ) )
                 {
